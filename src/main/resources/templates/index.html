@@ -190,10 +190,10 @@ ddsmoothmenu.init({
                 <div class="content"> 
                 	<ul class="sidebar_list">
                         <li th:each="category : ${categories}">
-                        <a href="#" th:text="${category.name}">Categoty 1</a>
-                        <a href="#" th:text="${categoryStat.index}">Categoty 1</a>
+                        <a  href="/category/0" th:href="/category/${category.id}"> th:text="${category.name}">Categoty 1</a>
                         </li>
-                         <li class="last"><a href="#">Aenean varius nulla</a></li>
+                         <li class="first"><a href="#">Aenean varius nulla</a></li>
+                        <li class="last"><a href="#">Aenean varius nulla</a></li>
                     </ul>
                 </div>
             </div>
