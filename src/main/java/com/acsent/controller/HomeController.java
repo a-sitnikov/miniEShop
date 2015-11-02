@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.List;
+import java.util.ArrayList;
 
 @Controller
 public class HomeController {
@@ -19,7 +19,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model) {
 
-		List<Category> categories = categoryRepository.findAll();
+		ArrayList<Category> categories = categoryRepository.findAll();
 		model.addAttribute("categories", categories);
 
 		//List<Category> list = session.createCriteria(Category.class).list();
