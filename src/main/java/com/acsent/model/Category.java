@@ -12,11 +12,14 @@ public class Category {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "uuid", columnDefinition = "BINARY(16)")
+    @Column(name = "id", columnDefinition = "BINARY(16)")
     private UUID id;
 
-    @Column
+    @Column(length = 100)
     private String name;
+
+    public Category() {
+    }
 
     public Category(String name, UUID id) {
         this.name = name;

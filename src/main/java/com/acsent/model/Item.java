@@ -12,15 +12,24 @@ public class Item {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "uuid", columnDefinition = "BINARY(16)")
+    @Column(name = "id", columnDefinition = "BINARY(16)")
     private UUID id;
 
-    @Column
+    @Column(length = 100)
     private String name;
 
-    public Item(String name, UUID id) {
-        this.name = name;
-        this.id = id;
+    //@Column(name="category_id")
+    //private Category category;
+
+    public Item(UUID id, String name) {
+        this.id       = id;
+        this.name     = name;
+    }
+
+    public Item(UUID id, String name, Category category) {
+        this.id       = id;
+        this.name     = name;
+        //this.category = category;
     }
 
     public UUID getId() {
@@ -39,4 +48,11 @@ public class Item {
         this.name = name;
     }
 
+//    public Category getCategory() {
+//        return category;
+//    }
+//
+//    public void setCategory(Category category) {
+//        this.category = category;
+//    }
 }
