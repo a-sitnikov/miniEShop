@@ -17,8 +17,8 @@
       <profile default="true" name="Default" enabled="false">
         <processorPath useClasspath="true" />
       </profile>
-      <profile default="false" name="Annotation profile for miniEShop" enabled="true">
-        <sourceOutputDir name="target\generated-sources\annotations" />
+      <profile default="false" name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target\generated-test-sources\test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
@@ -26,7 +26,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="miniEShop" target="1.6" />
+      <module name="miniEShop" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
