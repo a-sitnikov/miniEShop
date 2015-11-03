@@ -3,6 +3,7 @@ package com.acsent.model;
 import javax.persistence.*;
 import java.io.Serializable;
 
+@SuppressWarnings("WeakerAccess")
 @Entity
 @Table(name = "order_items")
 public class OrderItem implements Serializable {

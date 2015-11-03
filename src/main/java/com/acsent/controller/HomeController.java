@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
 
+@SuppressWarnings("WeakerAccess")
 @Controller
 public class HomeController {
 
@@ -24,6 +25,7 @@ public class HomeController {
 	@Autowired
 	ItemRepository itemRepository;
 
+	@SuppressWarnings("SameReturnValue")
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model) {
 
