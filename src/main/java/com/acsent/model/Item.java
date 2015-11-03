@@ -1,7 +1,6 @@
 package com.acsent.model;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "items",
@@ -57,5 +56,10 @@ public class Item {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    public String getImage() {
+        return String.format("%02d", id);
+    }
+
 }
 
