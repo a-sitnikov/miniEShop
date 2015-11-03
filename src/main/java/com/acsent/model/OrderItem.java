@@ -7,14 +7,12 @@ import java.io.Serializable;
 @Table(name = "order_items")
 public class OrderItem implements Serializable {
 
-    /* Composite ID = order_id, id*/
     @Id
+    private Long id;
+
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
-
-    @Id
-    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "item_id")

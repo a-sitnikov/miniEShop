@@ -1,6 +1,7 @@
 package com.acsent.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "items",
@@ -57,3 +58,4 @@ public class Item {
         this.category = category;
     }
 }
+
