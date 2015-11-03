@@ -6,6 +6,9 @@ import javax.persistence.*;
 @Table(name = "order_items")
 public class OrderItem {
 
+    @Id
+    private Long id;
+
     @ManyToOne
     @JoinColumn(name ="order_id")
     private Order order;
@@ -14,16 +17,24 @@ public class OrderItem {
     @JoinColumn(name ="item_id")
     private Item item;
 
-    @Column
+    @Column(precision=15, scale=2)
     private float price;
 
     @Column
-    private float qty;
+    private int qty;
 
-    @Column
+    @Column(precision=15, scale=2)
     private float sum;
 
     public OrderItem() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Order getOrder() {
@@ -50,11 +61,11 @@ public class OrderItem {
         this.price = price;
     }
 
-    public float getQty() {
+    public int getQty() {
         return qty;
     }
 
-    public void setQty(float qty) {
+    public void setQty(int qty) {
         this.qty = qty;
     }
 

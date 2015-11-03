@@ -10,10 +10,15 @@ public class Customer {
     @Id
     private Long id;
 
-    @Column
+    @Column(length = 250, unique = true)
     private String email;
 
     public Customer() {
+    }
+
+    public Customer(Long id, String email) {
+        this.id = id;
+        this.email = email;
     }
 
     public Long getId() {
