@@ -189,11 +189,20 @@ ddsmoothmenu.init({
             	<h3>Categories</h3>   
                 <div class="content"> 
                 	<ul class="sidebar_list">
-                        <li th:each="category : ${categories}">
-                        <a  href="/category/0" th:href="/category/${category.id}"> th:text="${category.name}">Categoty 1</a>
+                    <!--/*@thymesVar id="categories" type="ArrayList<com.acsent.model.Category>"*/-->
+                    <div  th:each="category : ${categories}" th:remove="tag">
+                    <div th:switch="${categoryStat.index}" th:remove="tag">
+                        <li  th:case="'0'" class="first">
+                            <a  href="/category/1" th:href="@{/category/{id}(id=${category.id})}" th:text="${category.name}">Categoty 1</a>
                         </li>
-                         <li class="first"><a href="#">Aenean varius nulla</a></li>
-                        <li class="last"><a href="#">Aenean varius nulla</a></li>
+                         <li  th:case="${categories.size()-1}" class="last">
+                            <a  href="/category/2" th:href="@{/category/{id}(id=${category.id})}" th:text="${category.name}">Categoty 2</a>
+                        </li>
+                        <li  th:case="*">
+                            <a  href="/category/3" th:href="@{/category/{id}(id=${category.id})}" th:text="${category.name}">Categoty 3</a>
+                        </li>
+                    </div>
+                    </div>
                     </ul>
                 </div>
             </div>

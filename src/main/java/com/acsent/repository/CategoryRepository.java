@@ -6,10 +6,9 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 @Repository
 @Qualifier(value = "CategoryRepository")
-public interface CategoryRepository extends CrudRepository<Category, UUID> {
-    ArrayList<Category> findAll();
+public interface CategoryRepository extends CrudRepository<Category, Long> {
+    ArrayList<Category> findAllByOrderByNameAsc();
 }
