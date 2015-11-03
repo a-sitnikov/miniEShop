@@ -1,29 +1,32 @@
 package com.acsent.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "order_items")
-public class OrderItem {
+public class OrderItem implements Serializable {
+
+    /* Composite ID = order_id, id*/
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     @Id
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name ="order_id")
-    private Order order;
-
-    @ManyToOne
-    @JoinColumn(name ="item_id")
+    @JoinColumn(name = "item_id")
     private Item item;
 
-    @Column(precision=15, scale=2)
+    @Column(columnDefinition = "Decimal(15,2)")
     private float price;
 
     @Column
     private int qty;
 
-    @Column(precision=15, scale=2)
+    @Column(columnDefinition = "Decimal(15,2)")
     private float sum;
 
     public OrderItem() {

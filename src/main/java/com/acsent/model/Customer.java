@@ -8,6 +8,7 @@ import javax.persistence.*;
 public class Customer {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
     @Column(length = 250, unique = true)

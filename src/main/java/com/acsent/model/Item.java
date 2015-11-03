@@ -3,16 +3,19 @@ package com.acsent.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "items")
+@Table(name = "items",
+    indexes = @Index(name = "idx_category", columnList = "category_id")
+)
 public class Item {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
     @Column(length = 100)
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name ="category_id")
     private Category category;
 

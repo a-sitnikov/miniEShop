@@ -5,16 +5,19 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "orders",
+        indexes = @Index(name = "idx_customer",  columnList = "customer_id")
+)
 public class Order {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
     @Column
     private Date date;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name ="customer_id")
     private Customer customer;
 
