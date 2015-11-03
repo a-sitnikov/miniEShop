@@ -1,9 +1,6 @@
 package com.acsent.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "items")
@@ -15,8 +12,12 @@ public class Item {
     @Column(length = 100)
     private String name;
 
-    //@Column(name="category_id")
-    //private Category category;
+    @ManyToOne
+    @JoinColumn(name ="category_id")
+    private Category category;
+
+    public Item() {
+    }
 
     public Item(Long id, String name) {
         this.id       = id;
@@ -26,7 +27,7 @@ public class Item {
     public Item(Long id, String name, Category category) {
         this.id       = id;
         this.name     = name;
-        //this.category = category;
+        this.category = category;
     }
 
     public Long getId() {
@@ -45,11 +46,11 @@ public class Item {
         this.name = name;
     }
 
-//    public Category getCategory() {
-//        return category;
-//    }
-//
-//    public void setCategory(Category category) {
-//        this.category = category;
-//    }
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }
