@@ -29,7 +29,9 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model) {
 
-		ArrayList<Category> categories = categoryRepository.findAllByOrderByNameAsc();
+        model.addAttribute("categoryName", "New Products");
+
+        ArrayList<Category> categories = categoryRepository.findAllByOrderByNameAsc();
 		model.addAttribute("categories", categories);
 
         Page<Item> items = itemRepository.findAllByOrderByNameAsc(new PageRequest(0, 10));
@@ -41,7 +43,7 @@ public class HomeController {
     @RequestMapping(value = "/1", method = RequestMethod.GET)
     public String index1(Model model) {
 
-        Page<Item> items = itemRepository.findAllByOrderByNameAsc(new PageRequest(0, 10));
+        Page<Item> items = itemRepository.findAllByOrderByNameAsc(new PageRequest(0, 12));
 
         for (Item item: items){
             System.out.println(item.getName());
@@ -55,11 +57,22 @@ public class HomeController {
 	@RequestMapping("/category/{id}")
 	public String category(@PathVariable("id") Long categoryId, Model model){
 
-		return "index";
-	}
-	@RequestMapping("/category/{id}/page{page}")
-	public String category(@PathVariable("id") Long categoryId, @PathVariable("page") Long pageNumber, Model model){
+        return category(categoryId, 0, model);
 
-		return "index";
+	}
+
+	@RequestMapping("/category/{id}/page{page}")
+	public String category(@PathVariable("id") Long categoryId, @PathVariable("page") int pageNumber, Model model){
+
+		ArrayList<Category> categories = categoryRepository.findAllByOrderByNameAsc();
+		model.addAttribute("categories", categories);
+
+		Category category = categoryRepository.findOne(categoryId);
+        model.addAttribute("categoryName", category.getName());
+
+		Page<Item> items = itemRepository.findByCategoryOrderByNameAsc(category, new PageRequest(pageNumber, 12));
+		model.addAttribute("items", items);
+
+		return "products";
 	}
 }
