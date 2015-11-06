@@ -40,20 +40,6 @@ public class HomeController {
 		return "index";
 	}
 
-    @RequestMapping(value = "/1", method = RequestMethod.GET)
-    public String index1(Model model) {
-
-        Page<Item> items = itemRepository.findAllByOrderByNameAsc(new PageRequest(0, 12));
-
-        for (Item item: items){
-            System.out.println(item.getName());
-        }
-
-        model.addAttribute("items", items);
-
-        return "index1";
-    }
-
 	@RequestMapping("/category/{id}")
 	public String category(@PathVariable("id") Long categoryId, Model model){
 
