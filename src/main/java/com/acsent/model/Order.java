@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "orders",
-        indexes = @Index(name = "idx_customer",  columnList = "customer_id")
+        indexes = @Index(name = "idx_user",  columnList = "user_id")
 )
 public class Order {
 
@@ -18,15 +18,15 @@ public class Order {
     private Date date;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name ="customer_id")
-    private Customer customer;
+    @JoinColumn(name ="user_id")
+    private User user;
 
     public Order() {
     }
 
-    public Order(Long id, Customer customer, Date date) {
+    public Order(Long id, User user, Date date) {
         this.id = id;
-        this.customer = customer;
+        this.user = user;
         this.date = date;
     }
 
@@ -46,11 +46,11 @@ public class Order {
         this.date = date;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public User getUser() {
+        return user;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

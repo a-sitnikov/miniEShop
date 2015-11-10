@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class Application {
 
-    @Value("${spring.datasource.driverClassName}")
+    @Value("${spring.datasource.driver-class-name}")
     private String databaseDriverClassName;
 
     @Value("${spring.datasource.url}")
