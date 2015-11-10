@@ -8,8 +8,6 @@ import org.springframework.context.annotation.Bean;
 
 @SuppressWarnings("WeakerAccess")
 @SpringBootApplication
-//@EnableJpaRepositories(basePackages = "com.acsent.repository")
-//@EntityScan(basePackages = "com.acsent.model")
 public class Application {
 
     @Value("${spring.datasource.driverClassName}")
