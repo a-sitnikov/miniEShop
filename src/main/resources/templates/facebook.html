@@ -1,16 +1,11 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Hello Facebook</title>
 </head>
 <body>
-<h3>Connect to Facebook</h3>
+<h3>Hello, <span th:text="${facebookProfile.name}">Some User</span>!</h3>
+<h3 th:text="${facebookProfile}"></h3>
+<h4>Here is your home feed:</h4>
 
-<form action="/connect/facebook" method="POST">
-    <input type="hidden" name="scope" value="email" />
-    <div class="formInfo">
-        <p>You aren't connected to Facebook yet. Click the button to connect this application with your Facebook account.</p>
-    </div>
-    <p><button type="submit">Connect to Facebook</button></p>
-</form>
 </body>
 </html>

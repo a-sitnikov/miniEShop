@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.inject.Inject;
 
 @Controller
+@RequestMapping("facebook")
 public class FacebookController {
 
     //https://spring.io/guides/gs/accessing-facebook/
@@ -19,21 +20,15 @@ public class FacebookController {
         this.facebook = facebook;
     }
 
-    @RequestMapping(value = "/facebook", method= RequestMethod.GET)
+    @RequestMapping(method= RequestMethod.GET)
     public String helloFacebook(Model model) {
-/*        if (!facebook.isAuthorized()) {
+        if (!facebook.isAuthorized()) {
             return "redirect:/connect/facebook";
         }
 
-        model.addAttribute(facebook.userOperations().getUserProfile());
-        PagedList<Post> homeFeed = facebook.feedOperations().getHomeFeed();
-        model.addAttribute("feed", homeFeed);
-*/
+        model.addAttribute("facebookProfile", facebook.userOperations().getUserProfile());
+
         return "facebook";
     }
 
-    @RequestMapping(value = "/facebook", method = RequestMethod.POST)
-    public String facebookPost() {
-        return "facebook";
-    }
 }
