@@ -86,7 +86,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = PasswordCrypto.getInstance().encrypt(password);
     }
     public Set<UserRole> getRoles() {
         return roles;
