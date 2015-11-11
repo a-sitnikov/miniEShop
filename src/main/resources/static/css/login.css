@@ -1,21 +1,19 @@
-#logindiv * {
-  margin: 0px;
-  padding: 0px;
-}
-
-#logindiv {
+.modal {
   top:0;
   left:0;
   position: fixed;
-  font-family: verdana;
-  z-index: 99998;
+  visibility: hidden;
   width: 100%;
   height: 100%;
   background: rgba(0,0,0,0.8);
-/*	background: #fff;
-	background: -moz-linear-gradient(#fff, #999);
-	background: -webkit-linear-gradient(#fff, #999);
-	background: -o-linear-gradient(#fff, #999);*/
+  pointer-events: auto;
+  z-index: 1000;
+  transition: 0.5s ease;
+  font-family:verdana;
+  line-height: 1em;
+  font-size: 16px;
+  margin:0px;
+  padding:0px;
 }
 
 #loginform {
@@ -29,20 +27,13 @@
   left: 50%;
   transform: translate(-50%, -50%);
   
-  z-index: 99999;
-/*  opacity:0;
   -webkit-transition: opacity 400ms ease-in;
   -moz-transition: opacity 400ms ease-in;
   transition: opacity 400ms ease-in;
-  pointer-events: none;*/
-/*  background: black;/*rgba(0,0,0,0.8);*/
-}
-
-#loginform:target {
-  opacity:1;
   pointer-events: auto;
+  
+  transition: 0.5s ease;
 }
-
 /*
 #loginform > div {
 	width: 400px;
@@ -54,7 +45,8 @@
 	background: -moz-linear-gradient(#fff, #999);
 	background: -webkit-linear-gradient(#fff, #999);
 	background: -o-linear-gradient(#fff, #999);
-} */
+} 
+*/  
 #loginform input {
   display: block;
   margin: 0px auto 15px;
@@ -160,6 +152,9 @@
   color: #fff;
   font-size: 13px;
   padding: 12px 0px;
+  margin: 0px 0px 0px;
+  font-weight: bold;
+
 }
 
 #note {
@@ -195,7 +190,7 @@
   -ms-transition: 0.5s ease;
   transition: 0.5s ease;
 }
-
+ 
 .fa-facebook {
   color: #fff;
   font-size: 7em;
@@ -220,7 +215,7 @@
   -o-transition: 0.5s ease;
   -ms-transition: 0.5s ease;
   transition: 0.5s ease;
-}
+}   
 
 #mainlogin {
   float: left;
@@ -230,7 +225,7 @@
   position: relative;
   background: #555555;
   border-radius: 3px;
-}
+}   
 
 #connect {
   font-weight: bold;
@@ -239,7 +234,7 @@
   text-align: left;
   font-family: verdana;
   padding-top: 10px;
-}
+}   
 
 #or {
   position: absolute;

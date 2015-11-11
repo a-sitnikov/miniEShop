@@ -310,10 +310,19 @@ h6 {
 
 #sidebar .sidebar_list li.first { 
 	border-top: none; 
+    font-size: 12px;
+    line-height: 1.4em;
 }
 
 #sidebar .sidebar_list li.last { 
 	border-bottom: none; 
+    font-size: 12px;
+    line-height: 1.4em;
+}
+
+#sidebar .sidebar_list li.middle { 
+    font-size: 12px;
+    line-height: 1.4em;
 }
 
 #sidebar .sidebar_list li a { 
