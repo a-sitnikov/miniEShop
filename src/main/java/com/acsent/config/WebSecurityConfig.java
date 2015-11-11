@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebMvcSecurity
-@ComponentScan("com.acsent")
+@ComponentScan(basePackages = {"com.acsent"})
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static PasswordEncoder encoder;

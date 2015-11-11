@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="../static/css/ddsmoothmenu.css" th:href="@{/css/ddsmoothmenu.css}"/>
     <link rel="stylesheet" type="text/css" media="all" href="../static/css/jquery.dualSlider.0.2.css" th:href="@{/css/jquery.dualSlider.0.2.css}"/>
 
-    <link rel='stylesheet prefetch' href='http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css'>
+    <link rel='stylesheet prefetch' href='http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css'/>
     <link rel="stylesheet" type="text/css" media="all" href="../static/css/login.css" th:href="@{/css/login.css}"/>
 
     <script type="text/javascript" src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}">
@@ -55,6 +55,7 @@
     </script>
 
     <script type="text/javascript">
+
 
     ddsmoothmenu.init({
         mainmenuid: "top_nav", //menu DIV id
@@ -277,13 +278,18 @@
 
 <div id="loginform-parent" class="modal">
     <div id="loginform">
-        <div id="facebook"><i class="fa fa-facebook"></i><div id="connect">Connect with Facebook</div></div>
+        <form th:action="@{/connect/facebook}" method="POST">
+            <div id="facebook" onclick="$(this).closest('form').submit()">
+                <i class="fa fa-facebook"></i>
+                <div id="connect">Connect with Facebook</div>
+            </div>
+        </form>
         <div id="mainlogin">
             <div id="or">or</div>
             <h1>Log in with awesome new thing</h1>
             <form action="#">
-                <input type="text" placeholder="username or email" value="" required>
-                <input type="password" placeholder="password" value="" required>
+                <input type="text" placeholder="username or email" value="" required="required"/>
+                <input type="password" placeholder="password" value="" required="required"/>
                 <button type="submit"><i class="fa fa-arrow-right"></i></button>
             </form>
             <div id="note"><a href="#">Forgot your password?</a></div>

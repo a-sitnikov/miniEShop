@@ -1,12 +1,12 @@
 package com.acsent.repository;
 
-import com.acsent.model.User;
+import com.acsent.model.AppUser;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Long> {
-    User findByEmail(String email);
-    User findByUsername(String username);
+public interface UserRepository extends CrudRepository<AppUser, Long> {
+    AppUser findByEmail(String email);
+    AppUser findByUsername(String username);
 }
 

@@ -1,6 +1,6 @@
 package com.acsent.repository;
 
-import com.acsent.model.UserRole;
+import com.acsent.model.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -27,24 +27,24 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException {
 
-        com.acsent.model.User user = userRepository.findByUsername(username);
-        List<GrantedAuthority> authorities = buildUserAuthority(user.getRoles());
+        AppUser appUser = userRepository.findByUsername(username);
+        List<GrantedAuthority> authorities = buildUserAuthority(appUser);
 
-        return buildUserForAuthentication(user, authorities);
+        return buildUserForAuthentication(appUser, authorities);
 
     }
 
-    private User buildUserForAuthentication(com.acsent.model.User user, List<GrantedAuthority> authorities) {
+    private User buildUserForAuthentication(AppUser user, List<GrantedAuthority> authorities) {
         return new User(user.getUsername(), user.getPassword(), authorities);
     }
 
-    private List<GrantedAuthority> buildUserAuthority(Set<UserRole> userRoles) {
+    private List<GrantedAuthority> buildUserAuthority(AppUser appUser) {
 
         Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
 
-        // Build user's authorities
-        for (UserRole userRole : userRoles) {
-            setAuths.add(new SimpleGrantedAuthority(userRole.getRoleName()));
+        setAuths.add(new SimpleGrantedAuthority("USER"));
+        if (appUser.isAdmin()) {
+            setAuths.add(new SimpleGrantedAuthority("ADMIN"));
         }
 
         return new ArrayList<GrantedAuthority>(setAuths);

@@ -15,6 +15,9 @@ public class Item {
     @Column(length = 100)
     private String name;
 
+    @Column(columnDefinition = "Decimal(15,2)")
+    private Float price;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name ="category_id")
     private Category category;
@@ -61,5 +64,12 @@ public class Item {
         return String.format("%02d", id);
     }
 
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
+    }
 }
 

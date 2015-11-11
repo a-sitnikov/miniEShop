@@ -19,12 +19,12 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name ="user_id")
-    private User user;
+    private AppUser user;
 
     public Order() {
     }
 
-    public Order(Long id, User user, Date date) {
+    public Order(Long id, AppUser user, Date date) {
         this.id = id;
         this.user = user;
         this.date = date;
@@ -46,11 +46,11 @@ public class Order {
         this.date = date;
     }
 
-    public User getUser() {
+    public AppUser getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(AppUser user) {
         this.user = user;
     }
 }

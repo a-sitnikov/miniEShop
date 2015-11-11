@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class AppUser {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -27,34 +27,19 @@ public class User {
     @Column
     private boolean enabled;
 
-    @OneToMany(mappedBy = "user")
-    private Set<UserRole> roles;
+    @Column(name="isAdmin")
+    private boolean admin;
 
-    public User(String username, String password) {
+    public AppUser(String username, String password) {
 
         this.username = username;
         this.email    = email;
         this.password = PasswordCrypto.getInstance().encrypt(password);
 
-        if(this.roles == null) {
-            this.roles = new HashSet<UserRole>();
-        }
-
-        //create a new user with basic user privileges
-        this.roles.add(
-                new UserRole(
-                        RoleEnum.USER.toString(),
-                        this
-                ));
-
     }
 
-    public User() {
+    public AppUser() {
         this.enabled = true;
-
-        if(this.roles == null) {
-            this.roles = new HashSet<UserRole>();
-        }
     }
 
     public Long getId() {
@@ -88,13 +73,6 @@ public class User {
     public void setPassword(String password) {
         this.password = PasswordCrypto.getInstance().encrypt(password);
     }
-    public Set<UserRole> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<UserRole> roles) {
-        this.roles = roles;
-    }
 
     public boolean isEnabled() {
         return enabled;
@@ -102,5 +80,13 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 }

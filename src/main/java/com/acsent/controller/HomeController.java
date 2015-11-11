@@ -37,7 +37,7 @@ public class HomeController {
         ArrayList<Category> categories = categoryRepository.findAllByOrderByNameAsc();
 		model.addAttribute("categories", categories);
 
-        Page<Item> items = itemRepository.findAllByOrderByNameAsc(new PageRequest(0, 10));
+        Page<Item> items = itemRepository.findAllByOrderByNameAsc(new PageRequest(0, 12));
         model.addAttribute("items", items);
 
 		return "index";

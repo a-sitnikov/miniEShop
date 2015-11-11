@@ -1,8 +1,6 @@
 package com.acsent.controller;
 
-import com.acsent.model.RoleEnum;
-import com.acsent.model.User;
-import com.acsent.model.UserRole;
+import com.acsent.model.AppUser;
 import com.acsent.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,18 +37,14 @@ public class LoginController {
     @RequestMapping(value = "/login/create", method = RequestMethod.GET)
     public String createGet(Model model){
 
-        User user = new User();
+        AppUser user = new AppUser();
         model.addAttribute("user", user);
 
         return "/login/create";
     }
     @RequestMapping(value = "/login/create", method = RequestMethod.POST)
-    public String createPost(@ModelAttribute(value="user") User user, Model model){
+    public String createPost(@ModelAttribute(value="user") AppUser user, Model model){
 
-        user.getRoles().add(new UserRole(
-                RoleEnum.USER.toString(),
-                user
-        ));
         userRepository.save(user);
 
         return "/login/home";
