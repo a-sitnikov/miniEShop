@@ -1,7 +1,6 @@
 package com.acsent.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -37,22 +36,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //            .logout()
 //            .permitAll();
 
+        http.authorizeRequests().anyRequest().permitAll();
         http.rememberMe().key("miniEShop");
     }
 
     //http://shruubi.com/2014/12/03/spring-boot-hibernate-and-spring-security-a-step-in-the-right-direction-for-java/
+    //http://kielczewski.eu/2014/12/spring-boot-security-application/
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserDetailsService)
-                .passwordEncoder(passwordEncoder());
+        auth
+            .userDetailsService(customUserDetailsService)
+            .passwordEncoder(new BCryptPasswordEncoder());
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        if(encoder == null) {
-            encoder = new BCryptPasswordEncoder();
-        }
-
-        return encoder;
-    }
 }
