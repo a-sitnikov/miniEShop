@@ -287,7 +287,7 @@
         <div id="mainlogin">
             <div id="or">or</div>
             <h1>Log in with awesome new thing</h1>
-            <form action="#">
+            <form th:action="@{/login}" method="POST">
                 <input type="text" placeholder="username or email" value="" required="required"/>
                 <input type="password" placeholder="password" value="" required="required"/>
                 <button type="submit"><i class="fa fa-arrow-right"></i></button>
