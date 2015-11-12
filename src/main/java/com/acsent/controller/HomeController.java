@@ -1,13 +1,17 @@
 package com.acsent.controller;
 
+import com.acsent.security.AppSpringUser;
+import com.acsent.model.AppUser;
 import com.acsent.model.Category;
 import com.acsent.model.Item;
 import com.acsent.repository.CategoryRepository;
 import com.acsent.repository.ItemRepository;
+import com.acsent.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,11 +30,21 @@ public class HomeController {
 	@Autowired
 	ItemRepository itemRepository;
 
+	@Autowired
+	UserRepository userRepository;
+
 	@SuppressWarnings("SameReturnValue")
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index(Model model, Authentication auth) {
+	public String index(Model model) {
 
-		//com.acsent.model.User user = (com.acsent.model.User) auth.getPrincipal();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		// default userName = "anonymousUser"
+        Object user = auth.getPrincipal();
+        AppUser appUser;
+        if (user instanceof AppSpringUser) {
+            appUser = ((AppSpringUser)user).getAppUser();
+            model.addAttribute("userId", appUser.getId());
+        }
 
         model.addAttribute("categoryName", "New Products");
 

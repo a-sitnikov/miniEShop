@@ -15,7 +15,7 @@ public class Item {
     @Column(length = 100)
     private String name;
 
-    @Column(columnDefinition = "Decimal(15,2)")
+    @Column(columnDefinition = "Decimal(15,2)", nullable = false)
     private Float price;
 
     @ManyToOne(fetch = FetchType.EAGER)

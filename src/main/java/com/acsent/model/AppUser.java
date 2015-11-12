@@ -1,11 +1,7 @@
 package com.acsent.model;
 
 
-import com.acsent.utils.PasswordCrypto;
-
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -24,19 +20,11 @@ public class AppUser {
     @Column(name = "password")
     private String password;
 
-    @Column
-    private boolean enabled;
+    @Column(nullable = false)
+    private Boolean enabled;
 
-    @Column(name="isAdmin")
-    private boolean admin;
-
-    public AppUser(String username, String password) {
-
-        this.username = username;
-        this.email    = email;
-        this.password = PasswordCrypto.getInstance().encrypt(password);
-
-    }
+    @Column(name="isAdmin", nullable = false)
+    private Boolean admin;
 
     public AppUser() {
         this.enabled = true;
@@ -71,7 +59,7 @@ public class AppUser {
     }
 
     public void setPassword(String password) {
-        this.password = PasswordCrypto.getInstance().encrypt(password);
+        this.password = password;
     }
 
     public boolean isEnabled() {

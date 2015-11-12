@@ -1,6 +1,7 @@
-package com.acsent.repository;
+package com.acsent.security;
 
 import com.acsent.model.AppUser;
+import com.acsent.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class AppUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -28,25 +29,31 @@ public class CustomUserDetailsService implements UserDetailsService {
             throws UsernameNotFoundException {
 
         AppUser appUser = userRepository.findByUsername(username);
-        List<GrantedAuthority> authorities = buildUserAuthority(appUser);
+        if(appUser == null) {
+            throw new UsernameNotFoundException("Could not find user " + username);
+        }
 
-        return buildUserForAuthentication(appUser, authorities);
+        return buildUserForAuthentication(appUser);
 
     }
 
-    private User buildUserForAuthentication(AppUser user, List<GrantedAuthority> authorities) {
-        return new User(user.getUsername(), user.getPassword(), authorities);
+    private User buildUserForAuthentication(AppUser appUser) {
+
+        List<GrantedAuthority> authorities = buildUserAuthority(appUser);
+        return new AppSpringUser(appUser.getUsername(), appUser.getPassword(), authorities, appUser);
+
     }
 
     private List<GrantedAuthority> buildUserAuthority(AppUser appUser) {
 
         Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
 
-        setAuths.add(new SimpleGrantedAuthority("USER"));
+        setAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
         if (appUser.isAdmin()) {
-            setAuths.add(new SimpleGrantedAuthority("ADMIN"));
+            setAuths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
 
         return new ArrayList<GrantedAuthority>(setAuths);
     }
+
 }

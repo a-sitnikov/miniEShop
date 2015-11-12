@@ -1,5 +1,6 @@
 package com.acsent.controller;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -31,6 +32,10 @@ public class ExamplesController {
         }
 
         response.addCookie(new Cookie("id", id));
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String pass = encoder.encode("1");
+        model.addAttribute("pass", pass);
 
         return "index1";
     }
