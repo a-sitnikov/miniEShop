@@ -33,27 +33,8 @@ public class AppUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("Could not find user " + username);
         }
 
-        return buildUserForAuthentication(appUser);
+        return SecurityUtils.buildUserForAuthentication(appUser);
 
-    }
-
-    private User buildUserForAuthentication(AppUser appUser) {
-
-        List<GrantedAuthority> authorities = buildUserAuthority(appUser);
-        return new AppSpringUser(appUser.getUsername(), appUser.getPassword(), authorities, appUser);
-
-    }
-
-    private List<GrantedAuthority> buildUserAuthority(AppUser appUser) {
-
-        Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
-
-        setAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
-        if (appUser.isAdmin()) {
-            setAuths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        }
-
-        return new ArrayList<GrantedAuthority>(setAuths);
     }
 
 }
