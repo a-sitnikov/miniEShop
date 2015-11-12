@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -17,21 +16,14 @@ public class LoginController {
     @Autowired
     UserRepository userRepository;
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login1(Model model, @RequestParam("username") String username){
+    @RequestMapping(value = "/login")
+    public String login(Model model){
 
-        System.out.println(username);
-        return "index";
-    }
-
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login1(Model model){
-
-        return "index1";
+        return "redirect:/";
     }
 
     @RequestMapping("/login/login")
-    public String login(Model model){
+    public String login1(Model model){
 
         return "/login/login";
     }

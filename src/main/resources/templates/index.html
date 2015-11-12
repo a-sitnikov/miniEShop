@@ -96,7 +96,12 @@
         </div>
         
         <div id="header_right">
-	        <a href="#">My Account</a> | <a href="#">My Wishlist</a> | <a href="#">My Cart</a> | <a href="#">Checkout</a> | <a href="#" onclick='showLoginForm()'>Log in</a>
+            <div th:if="${user}">
+                <a href="#">My Account</a> | <a href="#">My Wishlist</a> | <a href="#">My Cart</a> | <a href="#">Checkout</a> | <a href="/logout" th:href="@{/logout}">Log out</a>
+            </div>
+            <div th:unless="${user}">
+                <a href="#">My Cart</a> | <a href="#">Checkout</a> | <a href="#" onclick='showLoginForm()'>Log in</a>
+            </div>
 		</div>
         
         <div class="cleaner"></div>
@@ -258,7 +263,7 @@
             <div th:each="item : ${items}" class="product_box" th:class="${itemStat.index % 3 == 2}? 'product_box no_margin_right' : 'product_box'">
             	<a href="productdetail.html"><img src="../static/images/product/01.jpg" th:src="@{/images/product/{image}.jpg(image=${item.image})}" alt="Image 01" /></a>
                 <h3 th:text="${item.name}">Item 1</h3>
-                <p class="product_price">$ 100</p>
+                <p class="product_price" th:text="${item.priceFormatted}">$ 100</p>
                 <a href="shoppingcart.html" class="add_to_card">Add to Cart</a>
                 <a href="productdetail.html" class="detail">Detail</a>
             </div>        	
@@ -290,6 +295,7 @@
             <form th:action="@{/login}" method="POST">
                 <input type="text" name="username" placeholder="username or email" value="" required="required"/>
                 <input type="password" name="password" placeholder="password" value="" required="required"/>
+                <input style="display:none" type="checkbox" name="remember-me" checked="checked"/>
                 <button type="submit"><i class="fa fa-arrow-right"></i></button>
             </form>
             <div id="note"><a href="#">Forgot your password?</a></div>

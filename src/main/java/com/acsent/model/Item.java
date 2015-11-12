@@ -18,6 +18,9 @@ public class Item {
     @Column(columnDefinition = "Decimal(15,2)", nullable = false)
     private Float price;
 
+    @Column(nullable = false)
+    private Boolean isNew;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name ="category_id")
     private Category category;
@@ -70,6 +73,18 @@ public class Item {
 
     public void setPrice(Float price) {
         this.price = price;
+    }
+
+    public String getPriceFormatted() {
+        return "$ " + String.format("%.2f", price);
+    }
+
+    public Boolean getNew() {
+        return isNew;
+    }
+
+    public void setNew(Boolean aNew) {
+        isNew = aNew;
     }
 }
 

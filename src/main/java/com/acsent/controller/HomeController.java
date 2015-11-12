@@ -40,10 +40,11 @@ public class HomeController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		// default userName = "anonymousUser"
         Object user = auth.getPrincipal();
+        System.out.println(user);
         AppUser appUser;
         if (user instanceof AppSpringUser) {
             appUser = ((AppSpringUser)user).getAppUser();
-            model.addAttribute("userId", appUser.getId());
+            model.addAttribute("user", appUser);
         }
 
         model.addAttribute("categoryName", "New Products");
@@ -51,7 +52,7 @@ public class HomeController {
         ArrayList<Category> categories = categoryRepository.findAllByOrderByNameAsc();
 		model.addAttribute("categories", categories);
 
-        Page<Item> items = itemRepository.findAllByOrderByNameAsc(new PageRequest(0, 12));
+        Page<Item> items = itemRepository.findByIsNewOrderByNameAsc(true, new PageRequest(0, 12));
         model.addAttribute("items", items);
 
 		return "index";

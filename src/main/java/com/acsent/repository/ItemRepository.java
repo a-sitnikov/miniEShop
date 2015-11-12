@@ -14,5 +14,6 @@ public interface ItemRepository extends CrudRepository<Item, Long> {
     Item findByName(String name);
     Page<Item> findAll(Pageable pageable);
     Page<Item> findAllByOrderByNameAsc(Pageable pageable);
+    Page<Item> findByIsNewOrderByNameAsc(Boolean isNew, Pageable pageable);
     Page<Item> findByCategoryOrderByNameAsc(Category category, Pageable pageable);
 }

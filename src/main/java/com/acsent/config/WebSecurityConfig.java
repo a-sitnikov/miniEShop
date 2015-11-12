@@ -1,5 +1,7 @@
 package com.acsent.config;
 
+import com.acsent.repository.RememberMeTokenRepository;
+import com.acsent.security.PersistentTokenRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -11,6 +13,7 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
 @Configuration
@@ -23,30 +26,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService customUserDetailsService;
 
+    @Autowired
+    RememberMeTokenRepository rememberMeTokenRepository;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http
-//            .authorizeRequests()
-//            .antMatchers("/", "/login/home", "/login/create").permitAll()
-//            .anyRequest().authenticated()
-//            .and()
-//            .formLogin()
-//            .loginPage("/login/login")
-//            .permitAll()
-//            .and()
-//            .logout()
-//            .permitAll();
 
         http
             .authorizeRequests()
                 .anyRequest()
                 .permitAll()
             .and()
-                .formLogin()
+            .formLogin()
                 .loginPage("/login")
             .and()
-                .rememberMe()
-                .key("miniEShop");
+            .logout()
+                // GET logout (default POST)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/")
+            .and()
+            .rememberMe()
+                .userDetailsService(customUserDetailsService)
+                .key("miniEShop")
+                .tokenRepository(persistentTokenRepository());
     }
 
     //http://shruubi.com/2014/12/03/spring-boot-hibernate-and-spring-security-a-step-in-the-right-direction-for-java/
@@ -65,4 +67,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder;
     }
+
+    @Bean
+    public PersistentTokenRepositoryImpl persistentTokenRepository() {
+        return new PersistentTokenRepositoryImpl(rememberMeTokenRepository);
+    }
+
 }
