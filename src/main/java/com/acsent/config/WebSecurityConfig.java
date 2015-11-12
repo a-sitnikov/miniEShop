@@ -55,6 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     //http://kielczewski.eu/2014/12/spring-boot-security-application/
     //http://stackoverflow.com/questions/7900994/programmatically-login-in-a-user-using-spring-security
 
+    //http://blog.solidcraft.eu/2011/03/spring-security-by-example-user-in.html
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth

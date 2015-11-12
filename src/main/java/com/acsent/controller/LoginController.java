@@ -2,12 +2,17 @@ package com.acsent.controller;
 
 import com.acsent.model.AppUser;
 import com.acsent.repository.UserRepository;
+import com.acsent.security.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 @Controller
@@ -16,6 +21,9 @@ public class LoginController {
     @Autowired
     UserRepository userRepository;
 
+    @Inject
+    MyTokenBasedRememberMeServices rememberMeServices;
+
     @RequestMapping(value = "/login")
     public String login(Model model){
 
@@ -23,9 +31,12 @@ public class LoginController {
     }
 
     @RequestMapping("/login/login")
-    public String login1(Model model){
+    public String login1(Model model, HttpServletRequest request, HttpServletResponse response){
 
-        return "/login/login";
+        AppUser appUser = userRepository.findByUsername("1");
+        SecurityUtils.logInUser(appUser, request, response, rememberMeServices);
+
+        return "redirect:/";
     }
 
     @RequestMapping("/login/hello")

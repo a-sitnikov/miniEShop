@@ -26,7 +26,7 @@ public class FacebookController {
         this.facebook = facebook;
     }
 
-    @RequestMapping(name = "/connect/facebookConnected", method = RequestMethod.GET)
+    //@RequestMapping(name = "/connect/facebookConnected", method = RequestMethod.GET)
     public String facebookConnected(Model model) {
         if (!facebook.isAuthorized()) {
             return "1";//"redirect:/connect/facebook";
