@@ -62,6 +62,6 @@ public class SecurityUtils {
         HttpSession session = request.getSession(true);
         session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
 
-        //RememberMeServices.loginSuccess();
+        //RememberMeServices.loginSuccess(request, response, auth);
     }
 }
