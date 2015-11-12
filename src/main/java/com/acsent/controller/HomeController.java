@@ -1,17 +1,14 @@
 package com.acsent.controller;
 
-import com.acsent.security.AppSpringUser;
-import com.acsent.model.AppUser;
 import com.acsent.model.Category;
 import com.acsent.model.Item;
 import com.acsent.repository.CategoryRepository;
 import com.acsent.repository.ItemRepository;
 import com.acsent.repository.UserRepository;
+import com.acsent.security.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,15 +34,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model) {
 
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		// default userName = "anonymousUser"
-        Object user = auth.getPrincipal();
-        System.out.println(user);
-        AppUser appUser;
-        if (user instanceof AppSpringUser) {
-            appUser = ((AppSpringUser)user).getAppUser();
-            model.addAttribute("user", appUser);
-        }
+        model.addAttribute("user", SecurityUtils.getAppUser());
 
         model.addAttribute("categoryName", "New Products");
 
@@ -68,7 +57,9 @@ public class HomeController {
 	@RequestMapping("/category/{id}/page{page}")
 	public String category(@PathVariable("id") Long categoryId, @PathVariable("page") int pageNumber, Model model){
 
-		ArrayList<Category> categories = categoryRepository.findAllByOrderByNameAsc();
+        model.addAttribute("user", SecurityUtils.getAppUser());
+
+        ArrayList<Category> categories = categoryRepository.findAllByOrderByNameAsc();
 		model.addAttribute("categories", categories);
 
 		Category category = categoryRepository.findOne(categoryId);
@@ -79,4 +70,18 @@ public class HomeController {
 
 		return "products";
 	}
+
+    @RequestMapping("/item/{id}")
+    public String products(@PathVariable("id") Long itemId, Model model){
+
+        model.addAttribute("user", SecurityUtils.getAppUser());
+
+        ArrayList<Category> categories = categoryRepository.findAllByOrderByNameAsc();
+        model.addAttribute("categories", categories);
+
+        Item item = itemRepository.findOne(itemId);
+        model.addAttribute("item", item);
+
+        return "productdetail";
+    }
 }
