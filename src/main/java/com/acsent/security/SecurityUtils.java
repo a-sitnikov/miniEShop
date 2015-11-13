@@ -7,14 +7,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.RememberMeServices;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class SecurityUtils {
 
@@ -50,7 +51,7 @@ public class SecurityUtils {
         return new ArrayList<GrantedAuthority>(setAuths);
     }
 
-    public static void logInUser(AppUser appUser, HttpServletRequest request, HttpServletResponse response) {
+    public static void logInUser(AppUser appUser, HttpServletRequest request, HttpServletResponse response, RememberMeServices rememberMeServices) {
 
         AppSpringUser user = buildUserForAuthentication(appUser);
         Authentication auth = new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
@@ -61,7 +62,8 @@ public class SecurityUtils {
         // Create a new session and add the security context.
         HttpSession session = request.getSession(true);
         session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
+        session.setAttribute("_spring_security_remember_me", true);
 
-        //RememberMeServices.loginSuccess(request, response, auth);
+        rememberMeServices.loginSuccess(request, response, auth);
     }
 }

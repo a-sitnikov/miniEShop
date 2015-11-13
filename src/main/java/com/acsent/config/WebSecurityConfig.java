@@ -3,6 +3,7 @@ package com.acsent.config;
 import com.acsent.repository.RememberMeTokenRepository;
 import com.acsent.security.PersistentTokenRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,9 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
@@ -27,10 +31,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService customUserDetailsService;
 
     @Autowired
-    RememberMeTokenRepository rememberMeTokenRepository;
+    private RememberMeTokenRepository rememberMeTokenRepository;
+
+    @Value("${application.remember-me.key}")
+    private String rememberMeKey;// = "miniEShop";
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        //PersistentTokenRepository tokenRepository = persistentTokenRepository();
 
         http
             .authorizeRequests()
@@ -46,9 +55,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")
             .and()
             .rememberMe()
-                .userDetailsService(customUserDetailsService)
-                .key("miniEShop")
-                .tokenRepository(persistentTokenRepository());
+                .key(rememberMeKey)
+                .rememberMeServices(getRememberMeServices());
     }
 
     //http://shruubi.com/2014/12/03/spring-boot-hibernate-and-spring-security-a-step-in-the-right-direction-for-java/
@@ -70,8 +78,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PersistentTokenRepositoryImpl persistentTokenRepository() {
+    public PersistentTokenRepository persistentTokenRepository() {
         return new PersistentTokenRepositoryImpl(rememberMeTokenRepository);
     }
 
+    @Bean
+    public RememberMeServices getRememberMeServices() {
+        PersistentTokenBasedRememberMeServices rememberMeServices = new PersistentTokenBasedRememberMeServices(rememberMeKey, customUserDetailsService, persistentTokenRepository());
+        rememberMeServices.setAlwaysRemember(true);
+        return rememberMeServices;
+    }
 }
