@@ -1,7 +1,9 @@
 package com.acsent.controller;
 
+import com.acsent.model.AppUser;
 import com.acsent.model.Category;
 import com.acsent.model.Item;
+import com.acsent.repository.CartDetailRepository;
 import com.acsent.repository.CategoryRepository;
 import com.acsent.repository.ItemRepository;
 import com.acsent.repository.UserRepository;
@@ -30,11 +32,25 @@ public class HomeController {
 	@Autowired
 	UserRepository userRepository;
 
+	@Autowired
+	CartDetailRepository cartDetailRepository;
+
 	@SuppressWarnings("SameReturnValue")
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model) {
 
-        model.addAttribute("user", SecurityUtils.getAppUser());
+		AppUser appUser = SecurityUtils.getAppUser();
+        model.addAttribute("user", appUser);
+
+		Long cartCount = cartDetailRepository.countByAppUser(appUser);
+		System.out.println(cartCount);
+
+		Float cartSum = cartDetailRepository.sumByAppUser(appUser);
+		System.out.println(cartSum);
+
+        model.addAttribute("cartCount", cartCount);
+        model.addAttribute("cartSum",   "$ " + String.format("%.2f", cartSum));
+
 
         model.addAttribute("categoryName", "New Products");
 
@@ -83,5 +99,10 @@ public class HomeController {
         model.addAttribute("item", item);
 
         return "productdetail";
+    }
+    @RequestMapping(value = "/addtocart", method = RequestMethod.POST)
+    public String addtocart(Model model, Long itemId){
+
+        return "redirect:/";
     }
 }

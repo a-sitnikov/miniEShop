@@ -26,6 +26,9 @@ public class AppUser {
     @Column(name="isAdmin", nullable = false)
     private Boolean admin;
 
+    @Column
+    private String facebookId;
+
     public AppUser() {
         this.enabled = true;
     }
@@ -62,19 +65,27 @@ public class AppUser {
         this.password = password;
     }
 
-    public boolean isEnabled() {
+    public Boolean isEnabled() {
         return enabled;
     }
 
-    public void setEnabled(boolean enabled) {
+    public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
 
-    public boolean isAdmin() {
+    public Boolean isAdmin() {
         return admin;
     }
 
-    public void setAdmin(boolean admin) {
+    public void setAdmin(Boolean admin) {
         this.admin = admin;
+    }
+
+    public String getFacebookId() {
+        return facebookId;
+    }
+
+    public void setFacebookId(String facebookId) {
+        this.facebookId = facebookId;
     }
 }

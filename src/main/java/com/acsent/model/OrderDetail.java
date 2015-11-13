@@ -6,7 +6,7 @@ import java.io.Serializable;
 @SuppressWarnings("WeakerAccess")
 @Entity
 @Table(name = "order_items")
-public class OrderItem implements Serializable {
+public class OrderDetail implements Serializable {
 
     @Id
     private Long id;
@@ -28,7 +28,7 @@ public class OrderItem implements Serializable {
     @Column(columnDefinition = "Decimal(15,2)")
     private float sum;
 
-    public OrderItem() {
+    public OrderDetail() {
     }
 
     public Long getId() {

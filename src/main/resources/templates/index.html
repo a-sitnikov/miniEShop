@@ -112,30 +112,18 @@
             <ul>
                 <li><a href="/" class="selected">Home</a></li>
                 <li><a href="products.html">Products</a>
-                    <ul>
-                        <li><a href="#submenu1">Sub menu 1</a></li>
-                        <li><a href="#submenu2">Sub menu 2</a></li>
-                        <li><a href="#submenu3">Sub menu 3</a></li>
-                  </ul>
                 </li>
                 <li><a href="about.html">About</a>
-                    <ul>
-                        <li><a href="#submenu1">Sub menu 1</a></li>
-                        <li><a href="#submenu2">Sub menu 2</a></li>
-                        <li><a href="#submenu3">Sub menu 3</a></li>
-                        <li><a href="#submenu4">Sub menu 4</a></li>
-                        <li><a href="#submenu5">Sub menu 5</a></li>
-                  </ul>
                 </li>
                 <li><a href="faqs.html">FAQs</a></li>
-                <li><a href="checkout.html">Checkout</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="checkout.html" th:href="@{/checkout}">Checkout</a></li>
+                <li><a href="contact.html" th:href="@{/contact}">Contact</a></li>
             </ul>
             <br style="clear: left" />
         </div> <!-- end of ddsmoothmenu -->
         <div id="menu_second_bar">
         	<div id="top_shopping_cart">
-            	Shopping Cart: <strong>3 Products</strong> ( <a href="#">Show Cart</a> )
+            	Shopping Cart: <strong><span th:text="${cartCount}">3</span> Products, sum: <span th:text="${cartSum}"></span></strong> ( <a href="/cart" th:href="@{/cart}">Show Cart</a> )
             </div>
         	<div id="templatemo_search">
                 <form action="#" method="get">
@@ -214,7 +202,7 @@
                     <!--/*@thymesVar id="categories" type="ArrayList<com.acsent.model.Category>"*/-->
                     <div  th:each="category : ${categories}" th:remove="tag">
                     <div th:switch="${categoryStat.index}" th:remove="tag">
-                        <li  th:case="'0'" class="first">
+                        <li  th:case="'0'" class="first selected">
                             <a  href="/category/1" th:href="@{/category/{id}(id=${category.id})}" th:text="${category.name}">Categoty 1</a>
                         </li>
                          <li  th:case="${categories.size()-1}" class="last">
@@ -266,7 +254,11 @@
             	<a href="productdetail.html"><img src="../static/images/product/01.jpg" th:src="@{/images/product/{image}.jpg(image=${item.image})}" alt="Image 01" /></a>
                 <h3 th:text="${item.name}">Item 1</h3>
                 <p class="product_price" th:text="${item.priceFormatted}">$ 100</p>
-                <a href="shoppingcart.html" class="add_to_card">Add to Cart</a>
+                <form th:action="@{/addtocart}" method="POST">
+                    <input type="hidden" name="itemId" th:value="${item.id}"/>
+                    <button type="submit" class="add_to_card">Add to Cart</button>
+                <!--<a href="shoppingcart.html" th:href="@{/addtocart}" class="add_to_card" onclick="$(this).closest('form').submit()">Add to Cart</a>-->
+                </form>
                 <a th:href="@{/item/{id}(id=${item.id})}" href="/item/1" class="detail">Detail</a>
             </div>        	
         </div>

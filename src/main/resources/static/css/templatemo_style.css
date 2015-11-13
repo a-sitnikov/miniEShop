@@ -372,7 +372,13 @@ h6 {
 	line-height: 28px;	
 	text-align: center;
 	color: #fff;
-	background: url(../images/add_to_cart.jpg)
+	border: 0;
+    cursor: pointer;
+    background: url(../images/add_to_cart.jpg)
+}
+
+.product_box .add_to_card:hover {
+    text-decoration: underline;
 }
 
 .product_box .detail {
