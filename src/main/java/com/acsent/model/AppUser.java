@@ -4,7 +4,9 @@ package com.acsent.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users",
+    indexes = @Index(name = "idx_facebook", columnList = "facebookId")
+)
 public class AppUser {
 
     @Id
@@ -26,7 +28,7 @@ public class AppUser {
     @Column(name="isAdmin", nullable = false)
     private Boolean admin;
 
-    @Column
+    @Column(length = 50)
     private String facebookId;
 
     public AppUser() {

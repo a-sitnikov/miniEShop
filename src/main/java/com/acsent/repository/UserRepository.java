@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends CrudRepository<AppUser, Long> {
     AppUser findByEmail(String email);
     AppUser findByUsername(String username);
+    AppUser findByFacebookId(String facebookId);
 }
 
