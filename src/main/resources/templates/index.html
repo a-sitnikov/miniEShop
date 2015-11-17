@@ -97,10 +97,10 @@
         
         <div id="header_right">
             <div th:if="${user}">
-                <a href="#">My Account</a> | <a href="#">My Wishlist</a> | <a href="#">My Cart</a> | <a href="#">Checkout</a> | <a href="/logout" th:href="@{/logout}">Log out</a>
+                <a href="/account">My Account</a> | <a href="/logout" th:href="@{/logout}">Log out</a>
             </div>
             <div th:unless="${user}">
-                <a href="#">My Cart</a> | <a href="#">Checkout</a> | <a href="#" onclick='showLoginForm()'>Log in</a>
+                <a href="#" onclick='showLoginForm()'>Log in</a> | <a href="/register">Register</a>
             </div>
 		</div>
         
@@ -111,10 +111,8 @@
     	<div id="top_nav" class="ddsmoothmenu">
             <ul>
                 <li><a href="/" class="selected">Home</a></li>
-                <li><a href="products.html">Products</a>
-                </li>
-                <li><a href="about.html">About</a>
-                </li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="about.html">About</a></li>
                 <li><a href="faqs.html">FAQs</a></li>
                 <li><a href="checkout.html" th:href="@{/checkout}">Checkout</a></li>
                 <li><a href="contact.html" th:href="@{/contact}">Contact</a></li>
@@ -282,12 +280,13 @@
                 <i class="fa fa-facebook"></i>
                 <div id="connect">Connect with Facebook</div>
             </div>
+            <input type="hidden" name="scope" value="email" />
         </form>
         <div id="mainlogin">
             <div id="or">or</div>
-            <h1>Log in with awesome new thing</h1>
+            <h1>Log in with email</h1>
             <form th:action="@{/login}" method="POST">
-                <input type="text" name="username" placeholder="username or email" value="" required="required"/>
+                <input type="text" name="username" placeholder="email" value="" required="required"/>
                 <input type="password" name="password" placeholder="password" value="" required="required"/>
                 <input style="display:none" type="checkbox" name="remember-me" checked="checked"/>
                 <button type="submit"><i class="fa fa-arrow-right"></i></button>
