@@ -252,7 +252,7 @@
             	<a href="productdetail.html"><img src="../static/images/product/01.jpg" th:src="@{/images/product/{image}.jpg(image=${item.image})}" alt="Image 01" /></a>
                 <h3 th:text="${item.name}">Item 1</h3>
                 <p class="product_price" th:text="${item.priceFormatted}">$ 100</p>
-                <form th:action="@{/addtocart}" method="POST">
+                <form th:action="@{/api/addtocart}" method="POST">
                     <input type="hidden" name="itemId" th:value="${item.id}"/>
                     <button type="submit" class="add_to_card">Add to Cart</button>
                 <!--<a href="shoppingcart.html" th:href="@{/addtocart}" class="add_to_card" onclick="$(this).closest('form').submit()">Add to Cart</a>-->

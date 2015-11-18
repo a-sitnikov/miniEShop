@@ -35,7 +35,7 @@ public class SecurityUtils {
     public static AppSpringUser buildUserForAuthentication(AppUser appUser) {
 
         List<GrantedAuthority> authorities = buildUserAuthority(appUser);
-        return new AppSpringUser(appUser.getUsername(), appUser.getPassword(), authorities, appUser);
+        return new AppSpringUser(appUser.getId().toString(), appUser.getPassword(), authorities, appUser);
 
     }
 

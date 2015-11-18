@@ -2,7 +2,6 @@ package com.acsent.controller;
 
 import com.acsent.model.AppUser;
 import com.acsent.repository.UserRepository;
-import com.acsent.security.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.stereotype.Controller;
@@ -34,8 +33,8 @@ public class LoginController {
     @RequestMapping("/login/login")
     public String login1(Model model, HttpServletRequest request, HttpServletResponse response){
 
-        AppUser appUser = userRepository.findByUsername("1");
-        SecurityUtils.logInUser(appUser, request, response, rememberMeServices);
+        //AppUser appUser = userRepository.findByUsername("1");
+        //SecurityUtils.logInUser(appUser, request, response, rememberMeServices);
 
         return "redirect:/";
     }

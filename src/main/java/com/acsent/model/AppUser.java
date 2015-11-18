@@ -13,9 +13,6 @@ public class AppUser {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    @Column
-    private String username;
-
     @Column(length = 250, unique = true)
     private String email;
 
@@ -23,10 +20,13 @@ public class AppUser {
     private String password;
 
     @Column(nullable = false)
-    private Boolean enabled;
+    private Boolean enabled = true;
 
     @Column(name="isAdmin", nullable = false)
-    private Boolean admin;
+    private Boolean admin = false;
+
+    @Column(name="isTemp", nullable = false)
+    private Boolean temp = false;
 
     @Column(length = 50)
     private String facebookId;
@@ -41,14 +41,6 @@ public class AppUser {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getEmail() {
@@ -89,5 +81,13 @@ public class AppUser {
 
     public void setFacebookId(String facebookId) {
         this.facebookId = facebookId;
+    }
+
+    public Boolean getTemp() {
+        return temp;
+    }
+
+    public void setTemp(Boolean temp) {
+        this.temp = temp;
     }
 }

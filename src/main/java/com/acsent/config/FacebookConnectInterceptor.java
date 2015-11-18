@@ -10,7 +10,6 @@ import org.springframework.social.connect.ConnectionFactory;
 import org.springframework.social.connect.web.ConnectInterceptor;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.User;
-import org.springframework.social.facebook.api.UserOperations;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
@@ -53,7 +52,6 @@ public class FacebookConnectInterceptor implements ConnectInterceptor<Facebook> 
         if (appUser == null) {
             appUser = new AppUser();
             appUser.setFacebookId(facebookId);
-            appUser.setUsername(facebookId);
             appUser.setEmail(email);
             appUser.setPassword("");
             appUser.setEnabled(true);
